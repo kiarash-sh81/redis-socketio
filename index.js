@@ -11,7 +11,7 @@ const server = http.createServer(app);
 const io = SocketIo(server , {cors:{origin: "*"}});
 
 async function sendMessage(socket){
-    redisClient.lrang("messages" , 0 , -1 , (err , data)=>{
+    redisClient.lrange("messages" , 0 , -1 , (err , data)=>{
         data.map(item =>{
             const [username , message] = item.split(":");
             socket.emit("message" , {
